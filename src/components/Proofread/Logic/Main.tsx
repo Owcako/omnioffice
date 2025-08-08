@@ -1,19 +1,19 @@
-import {useState} from "react";
+import useProofread from "../../../hooks/useProofread";
 import TextEditor from "../Display/Main";
 
 export default function TextEditorLogic() {
-    const [TextValue, SetTextValue] = useState<string>("");
+    const {Text, UpdateText} = useProofread();
 
     const HandleTextChange = (
         event: React.ChangeEvent<HTMLTextAreaElement>
     ) => {
-        SetTextValue(event.target.value);
+        UpdateText(event.target.value);
     };
 
     return (
         <TextEditor
-            Value={TextValue}
-            OnChange={HandleTextChange}
+            Value={Text}
+            TextChanged={HandleTextChange}
         />
     );
 }

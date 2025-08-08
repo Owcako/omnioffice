@@ -1,10 +1,10 @@
 import type {TextEditorProps} from "../../../types/TextEditorProps";
 
-export default function TextEditor({Value, OnChange}: TextEditorProps) {
+export default function TextEditor({Value, TextChanged}: TextEditorProps) {
     return (
         <textarea
             value={Value}
-            onChange={OnChange}
+            onChange={TextChanged}
             style={{
                 width: "100%",
                 resize: "vertical",
