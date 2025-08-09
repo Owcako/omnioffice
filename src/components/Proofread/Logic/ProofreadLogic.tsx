@@ -1,14 +1,16 @@
+import React from "react";
 import useProofread from "../../../hooks/useProofread";
-import ProofreadButton from "../Display/ProofreadButton";
 
-export default function ProofreadLogic() {
-    const {SendForProofread, Text} = useProofread();
+interface ProofreadLogicProps {
+    Render: (params: {
+        Suggestions: ReturnType<typeof useProofread>["Suggestions"];
+        SendForProofread: ReturnType<typeof useProofread>["SendForProofread"];
+        Text: ReturnType<typeof useProofread>["Text"];
+    }) => React.JSX.Element;
+}
 
-    const HandleProofreadClick = () => {
-        SendForProofread(Text);
-    };
+export default function ProofreadLogic({Render}: ProofreadLogicProps) {
+    const {SendForProofread, Text, Suggestions} = useProofread();
 
-    return (
-        <ProofreadButton Clicked={HandleProofreadClick} />
-    );
+    return Render({Suggestions, SendForProofread, Text});
 }
