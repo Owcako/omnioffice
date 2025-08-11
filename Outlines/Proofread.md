@@ -27,7 +27,6 @@ Proofread
             - Get array of objects and proofreading function from useProofread
             - Returns Render(everything got from useProofread) from props
 
-
     Display
         ProofreadButton
             - Returns a button
