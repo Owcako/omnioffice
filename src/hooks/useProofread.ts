@@ -21,6 +21,7 @@ export default function useProofread() {
             // const data: SuggestionCard[] = await response.json();
             
             // Mock suggestions for testing
+            console.log("Proofreading text:", TextValue);
             const mockSuggestions: SuggestionCard[] = [
                 {
                     Original: "teh",

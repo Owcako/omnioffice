@@ -17,15 +17,16 @@ Proofread
             - Type: string
 
     Logic
-        TextEditorLogic
-            - Get the text value and set text wrapper function from useProofread
-                - Renders TextEditor component
+        ProofreadLogic
+            - Get everything from useProofread
+            - Returns a div
+                - TextEditor component on the left
                     Value = text value
                     TextChanged = set text function
-
-        ProofreadLogic
-            - Get array of objects and proofreading function from useProofread
-            - Returns Render(everything got from useProofread) from props
+                - ProofreadButton under it
+                    Clicked = proofreading function
+            - Returns SidePanel (note the indentation)
+                Array = array of objects
 
     Display
         ProofreadButton
@@ -45,12 +46,5 @@ Proofread
                 - A heading (whatever level) in the center that displays `Original sentence -> Suggested sentence` (values from props)
                 - A body under the heading displaying the error description from props
 
-        App.tsx (rename to Window)
-            - Renders a div
-                TextEditorLogic on the left
-                On the bottom of text editor, ProofreadLogic
-                    Render = (destructured proofreading function) => ProofreadButton
-                        Clicked = function
-                On the right of viewport, another ProofreadLogic
-                    Render SidePanel
-                        Array = array of objects
+        App.tsx (rename to Window via command line)
+            - Renders ProofreadLogic
