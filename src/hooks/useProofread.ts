@@ -11,54 +11,29 @@ export default function useProofread() {
 
     const SendForProofread = async (TextValue: string) => {
         try {
-            // const response = await fetch("https://localhost:5000/api/proofread", {
-            //     method: "POST",
-            //     headers: {
-            //         "Content-Type": "application/json",
-            //     },
-            //     body: JSON.stringify({ text: TextValue }),
-            // });
-            // const data: SuggestionCard[] = await response.json();
-            
-            // Mock suggestions for testing
-            console.log("Proofreading text:", TextValue);
-            const mockSuggestions: SuggestionCard[] = [
-                {
-                    Original: "teh",
-                    Suggested: "the",
-                    Description: "Spelling error - 'teh' should be 'the'",
-                    Type: "spelling"
+            const response = await fetch("http://localhost:5000/api/proofread", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
                 },
-                {
-                    Original: "recieve",
-                    Suggested: "receive",
-                    Description: "Common spelling mistake - 'i' before 'e' except after 'c'",
-                    Type: "spelling"
-                },
-                {
-                    Original: "Your welcome",
-                    Suggested: "You're welcome",
-                    Description: "Grammar error - should use contraction 'you're' (you are)",
-                    Type: "grammar"
-                },
-                {
-                    Original: "its a good day",
-                    Suggested: "it's a good day",
-                    Description: "Missing apostrophe - 'its' should be 'it's' (it is)",
-                    Type: "punctuation"
-                },
-                {
-                    Original: "alot",
-                    Suggested: "a lot",
-                    Description: "Spacing error - 'alot' should be written as two words 'a lot'",
-                    Type: "spelling"
+                body: JSON.stringify({ text: TextValue }),
+            });
+            const data = await response.json();
+
+            if (response.ok) {
+                // Parse the JSON response and convert to SuggestionCard format
+                if (data.suggestions && Array.isArray(data.suggestions)) {
+                    SetSuggestions(data.suggestions);
+                } else {
+                    console.log("AI Response:", data.response);
+                    SetSuggestions([]);
                 }
-            ];
-            
-            SetSuggestions(mockSuggestions);
+            } else {
+                console.error("Error from API:", data.error);
+                SetSuggestions([]);
+            }
         } catch (error) {
             console.error("Error calling proofread API:", error);
-            // For now, set empty array on error
             SetSuggestions([]);
         }
     };
