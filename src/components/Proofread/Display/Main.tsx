@@ -1,8 +1,9 @@
-import type {TextEditorProps} from "../../../types/TextEditorProps";
+import type { TextEditorProps } from "../../../types/TextEditorProps";
+import MDEditor from "@uiw/react-md-editor";
 
 export default function TextEditor({Value, TextChanged}: TextEditorProps) {
     return (
-        <textarea
+        <MDEditor
             value={Value}
             onChange={TextChanged}
             style={{

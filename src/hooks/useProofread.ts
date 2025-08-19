@@ -1,23 +1,31 @@
-import {useState} from "react";
+import {useState, type ChangeEvent} from "react";
 import type {SuggestionCard} from "../types/SuggestionCard";
+import type {ContextStore} from "@uiw/react-md-editor";
 
 export default function useProofread() {
     const [Text, SetText] = useState<string>("");
     const [Suggestions, SetSuggestions] = useState<SuggestionCard[]>([]);
 
-    const UpdateText = (TextValue: string) => {
-        SetText(TextValue);
+    const UpdateText = (
+        value?: string,
+        _event?: ChangeEvent<HTMLTextAreaElement>,
+        _state?: ContextStore
+    ) => {
+        SetText(value || "");
     };
 
     const SendForProofread = async (TextValue: string) => {
         try {
-            const response = await fetch("http://localhost:5000/api/proofread", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ text: TextValue }),
-            });
+            const response = await fetch(
+                "http://localhost:5000/api/proofread",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({text: TextValue})
+                }
+            );
             const data = await response.json();
 
             if (response.ok) {
