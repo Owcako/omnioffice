@@ -102,6 +102,8 @@ def proofread_text():
         Description: string, the description of the error and the corrections changes in 1-2 sentences.
         Type: string, the suggestion type, use one word to state the category of the suggestion, must be in title case if contains multiple words.
 
+    If your suggested correction of a advanced issue includes basic ones inside it, list those ones before the advanced issue.
+
     Here is the text to proofread and edit:
     """
     try:

@@ -1,16 +1,13 @@
-import {useState, type ChangeEvent} from "react";
+import {useState, useRef} from "react";
 import type {SuggestionCard} from "../types/SuggestionCard";
-import type {ContextStore} from "@uiw/react-md-editor";
+import type {TextEditorRef} from "../components/TextEditor/Display/TextEditor";
 
 export default function useProofread() {
     const [Text, SetText] = useState<string>("");
     const [Suggestions, SetSuggestions] = useState<SuggestionCard[]>([]);
+    const EditorRef = useRef<TextEditorRef>(null);
 
-    const UpdateText = (
-        value?: string,
-        _event?: ChangeEvent<HTMLTextAreaElement>,
-        _state?: ContextStore
-    ) => {
+    const UpdateText = (value?: string) => {
         SetText(value || "");
     };
 
@@ -46,10 +43,32 @@ export default function useProofread() {
         }
     };
 
+    const ReplaceText = (
+        Start: number,
+        End: number,
+        ReplaceText: string,
+        Index: number
+    ) => {
+        const currentValue = Text || "";
+        const beforeText = currentValue.substring(0, Start);
+        const afterText = currentValue.substring(End);
+        const newValue = beforeText + ReplaceText + afterText;
+
+        SetText(newValue);
+        DeleteSuggestion(Index);
+    };
+
+    const DeleteSuggestion = (Index: number) => {
+        SetSuggestions(prev => prev.filter((_, i) => i !== Index));
+    };
+
     return {
         Text,
         Suggestions,
+        EditorRef,
         UpdateText,
-        SendForProofread
+        SendForProofread,
+        ReplaceText,
+        DeleteSuggestion
     };
 }

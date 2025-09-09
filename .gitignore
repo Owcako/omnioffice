@@ -24,6 +24,4 @@ backend/.env
 *.njsproj
 *.sln
 *.sw?
-.claude
 dev
-CLAUDE.md

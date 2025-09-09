@@ -1,11 +1,11 @@
-import Window from "./components/Proofread/Window";
 import "./App.css";
+import ProofreadLogic from "./components/Proofread/Logic/ProofreadLogic";
 
 function App() {
     return (
-        <>
-            <Window />
-        </>
+        <div>
+            <ProofreadLogic />
+        </div>
     );
 }
 
